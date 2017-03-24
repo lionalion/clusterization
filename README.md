@@ -2,10 +2,8 @@
 
 ###Texts clusterization based of word2vec ###
 
-
-
 Build under linux 
-g++ clust_w2v.cpp -o clust_w2v
+\tg++ clust_w2v.cpp -o clust_w2v
 ///////////////////
 run:
 ./clust_w2v -fl input_file -w2v classes_w2v -n N -th1 n -th2 n -th3 n -th4 n -out output_log
