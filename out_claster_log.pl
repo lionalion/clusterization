@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+﻿b#!/usr/bin/perl
 #script integrates the results of clustering and source text (input_file)
 # output_log input_file out
 use warnings;
@@ -61,7 +61,8 @@ while (my $line =<F_LOG>) {
 		foreach my $h (reverse sort { $h{$a} <=> $h{$b} } keys %h){
 			if(exists( $tmp{$h})){
 				my $cnt=$str[0]+1;
-				print F_OUT "$cnt\t$h{$h}\t$h\t$tmp{$h}\n";
+				my $wgt=int ($h{$h}*1000);
+				print F_OUT "$cnt\t$wgt\t$h\t$tmp{$h}\n";
 			}
 		}
 	}
