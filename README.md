@@ -50,6 +50,6 @@ for example - run.sh
 
 /////////////////////
 The trains corpus:
-english - Reuters  (http://trec.nist.gov/data/reuters/reuters.html) 1996-1997 ~ 180 million words
-russian - (private collection) 2013-2014 ~ 410 million words
+english - Reuters  (http://trec.nist.gov/data/reuters/reuters.html) 1996-1997 ~ 180 million words;
+russian - (private collection) 2013-2014 ~ 410 million words;
 
