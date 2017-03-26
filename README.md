@@ -1,5 +1,15 @@
 #Texts clusterization based of word2vec #
 
+The clustering models were obtained by the word2vec (-classes) method and smoothed (normalized) in a certain way.
+Features of the algorithm:
+- Clustering occurs not by words, but by semantic classes;
+- independence of the result from the length of documents;
+- independence of the results from the volume of the material;
+- automatic determination of the number of clusters;
+- no need to define primary clusters;
+- high speed of work.
+
+////////////////////
 Build under linux 
 g++ clust_w2v.cpp -o clust_w2v
 
