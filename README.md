@@ -9,9 +9,11 @@ Features of the algorithm:
 - no need to define primary clusters;
 - high speed of work.
 
-////////////////////
+//////////////////// 
+
 Build under linux 
-g++ clust_w2v.cpp -o clust_w2v
+
+	g++ clust_w2v.cpp -o clust_w2v
 
 ///////////////////
 
@@ -40,16 +42,17 @@ number_cluster: IDdocs1 weight1;IDdocs2 weight2;...IDdocsN weightN
 The script "out_claster_log.pl"  integrates the results of clustering and source text (input_file)
 
 run:
-perl out_claster_log.pl output_log input_file output_file
+	perl out_claster_log.pl output_log input_file output_file
 coding utf-8
 recommened 5 version perl (or higher)
 
 /////////////////////
 
-for example - run.sh 
+for example run - example.sh 
 
 /////////////////////
 The trains corpus:
-english - Reuters  (http://trec.nist.gov/data/reuters/reuters.html) 1996-1997 ~ 180 million words;
-russian - (private collection) 2013-2014 ~ 410 million words;
+
+	english - Reuters  (http://trec.nist.gov/data/reuters/reuters.html) 1996-1997 ~ 180 million words;
+	russian - (private collection) 2013-2014 ~ 410 million words;
 
