@@ -1,4 +1,27 @@
-//the author: L.Solovev
+/*
+ *      Texts clusterization based of word2vec
+ *
+ * Copyright (c) 2017 Lion Solovev
+ * All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 
 #include <iostream>
 #include <fstream>
@@ -20,59 +43,54 @@ void error (const char * text1, const char  * text2 = ""){
 }
 void postClast (std::vector < std::vector < int > > vIdStr,std::vector < std::vector <std::map<int,float> > > vMapCls, int th3, float th4, std::vector < std::vector < int > > & vOutIdStr, std::vector < std::vector <std::map<int,float> > > & vOutMapCls){
 	std::multimap <int,int> SizeMapCls;
-	int n=0;//number new claster
+	int n=0;
 	for (int k=0; k<vMapCls.size(); k++)
-		SizeMapCls.insert(std::pair<int,int>( vMapCls[k].size(),k )); //ранжируем по размеру кол-ва док в кластере	
+		SizeMapCls.insert(std::pair<int,int>( vMapCls[k].size(),k )); 
 
 	std::vector <int> vCheck;			
 	for (std::multimap<int,int>::const_reverse_iterator rit = SizeMapCls.rbegin(); rit != SizeMapCls.rend(); ++rit){		
 		bool flg_x=false;
-		int x = (*rit).second;
 		for (int q=0; q<vCheck.size(); q++){
-			if (vCheck[q] == x)
+			if (vCheck[q] == (*rit).second)
 				flg_x=true;
 		}
-		if (vIdStr[x].size() > th3 && flg_x==false){//третий порог + проверка уже объединенных кластеров	
+		if (vIdStr[(*rit).second].size() > th3 && flg_x==false){	
 			vOutIdStr.resize( vOutIdStr.size()+1 );
 			vOutMapCls.resize( vOutMapCls.size()+1 );
-			for (int h=0; h< vIdStr[x].size(); h++){							
-				vOutIdStr[n].push_back(vIdStr[x][h]); // id строк кластера							
-				vOutMapCls[n].push_back(vMapCls[x][h]); // {класс-вес} кслатера
+			for (int h=0; h< vIdStr[(*rit).second].size(); h++){							
+				vOutIdStr[n].push_back(vIdStr[(*rit).second][h]); 							
+				vOutMapCls[n].push_back(vMapCls[(*rit).second][h]); 
 			}
 			for ( std::multimap<int,int>::const_reverse_iterator tir = rit; tir != SizeMapCls.rend(); ++tir){
 				bool flg_y=false;
-				int y = (*tir).second;
 				for (int q=0; q<vCheck.size(); q++){
-					if (vCheck[q] == y)
+					if (vCheck[q] == (*tir).second)
 						flg_y=true;
 				}
-				if (x!=y && flg_y==false){
+				if ((*rit).second!=(*tir).second && flg_y==false){
 					int cnt=0;
-					if (vIdStr[y].size() > th3){
-						for (int w=0; w<vIdStr[x].size(); w++){
-							for (int z=0; z<vIdStr[y].size(); z++){
-								if (vIdStr[x][w] == vIdStr[y][z]) {
+					if (vIdStr[(*tir).second].size() > th3){
+						for (int w=0; w<vIdStr[(*rit).second].size(); w++){
+							for (int z=0; z<vIdStr[(*tir).second].size(); z++){
+								if (vIdStr[(*rit).second][w] == vIdStr[(*tir).second][z]) {
 									cnt++;
 									break;
 								}
 							}
 						}
-						//объединяем кластеры с одинаковым набором документов
-						if ( cnt > vIdStr[y].size()*th4){//порог th4
-							//out: vIdStr[x]+vIdStr[y] - IDstr; vMapCls[y]+vMapCls[y] - class&weight 
-							for (int g=0; g< vIdStr[y].size(); g++){ 
-								//тут нужна проверка на наличие дока в новом кластере
+						if ( cnt > vIdStr[(*tir).second].size()*th4){
+							for (int g=0; g< vIdStr[(*tir).second].size(); g++){ 
 								bool be=false;
 								for (int j=0; j< vOutIdStr[n].size(); j++){
-									if(vOutIdStr[n][j] == vIdStr[y][g])
+									if(vOutIdStr[n][j] == vIdStr[(*tir).second][g])
 										be=true;
 								}
 								if (be==false){
-									vOutIdStr[n].push_back(vIdStr[y][g]);// добавляем id строк кластера
-									vOutMapCls[n].push_back(vMapCls[y][g]);// добавляем {класс-вес} клаcтера
+									vOutIdStr[n].push_back(vIdStr[(*tir).second][g]);
+									vOutMapCls[n].push_back(vMapCls[(*tir).second][g]);
 								}
 							}
-							vCheck.push_back(y);
+							vCheck.push_back((*tir).second);
 						}
 					}
 				}
@@ -82,8 +100,7 @@ void postClast (std::vector < std::vector < int > > vIdStr,std::vector < std::ve
 	}
 }
 void firstClast (std::vector < std::map <int,float> > vCls, std::vector < int > vId, float th2, std::vector < std::vector <std::map<int,float> > > & vMapCls, std::vector < std::vector < int > > & vIdStr){
-	//vCls & vId ранжировать по длине 
-	std::multimap<int,int>  vMapRang;//длина вектора - его id
+	std::multimap<int,int>  vMapRang;
 	for (int id=0; id<vCls.size(); id++)
 		vMapRang.insert(std::pair<int,int>(vCls[id].size(),id));
 
@@ -94,7 +111,7 @@ void firstClast (std::vector < std::map <int,float> > vCls, std::vector < int > 
 		for (int a=0; a<vIdStr.size();a++){
 			for (int b=0; b<vIdStr[a].size();b++){
 				int tmp=(*fst).second;
-				if(vId[ (*fst).second ] == vIdStr[a][b]){//проверка на наличие id кластера в существующих: если док уже есть в др. кластере, то он не будет образовывать новый (уменьшение размерности)
+				if(vId[ (*fst).second ] == vIdStr[a][b]){
 					flg=true;
 					break;
 				}
@@ -104,28 +121,24 @@ void firstClast (std::vector < std::map <int,float> > vCls, std::vector < int > 
 		}
 		
 		if (flg==false){
-			std::map <int,float> cls1;
-			cls1=vCls[ (*fst).second ];
 			vMapCls.resize(vMapCls.size()+1);
 			vIdStr.resize(vIdStr.size()+1);
-			vMapCls[cnt].push_back(cls1);
+			vMapCls[cnt].push_back(vCls[ (*fst).second ]);
 			vIdStr[cnt].push_back(vId[(*fst).second ]);
 
 			for ( std::multimap<int,int>::const_reverse_iterator scnd = fst; scnd != vMapRang.rend(); ++scnd){
 				if (fst!=scnd){
 					std::map<int,float>::const_iterator itv = vCls[ (*fst).second ].begin();			
-					std::map <int,float> cls2;			
-					cls2=vCls[ (*scnd).second ];
 					int comp=0;
-					for ( std::map<int,float>::const_iterator itr = cls2.begin(); itr != cls2.end(); ++itr){
-						std::map<int,float>::const_iterator itv = cls1.begin();
-						itv = cls1.find( (*itr).first );//сравниваем классы первого вхождения с последующими
-						if(itv != cls1.end() )
+					for ( std::map<int,float>::const_iterator itr = vCls[ (*scnd).second ].begin(); itr != vCls[ (*scnd).second ].end(); ++itr){
+						std::map<int,float>::const_iterator itv = vCls[ (*fst).second ].begin();
+						itv = vCls[ (*fst).second ].find( (*itr).first );
+						if(itv != vCls[ (*fst).second ].end() )
 							comp++;
 					}
-					//проверка второго порога th2 (кол-во совпадений классов в двух документах)
-					if( cls1.size()*th2 < comp){
-						vMapCls[cnt].push_back(cls2);
+					
+					if( vCls[ (*fst).second ].size()*th2 < comp){
+						vMapCls[cnt].push_back(vCls[ (*scnd).second ]);
 						vIdStr[cnt].push_back(vId[(*scnd).second ]);
 					}
 				}
@@ -227,26 +240,14 @@ int main(int argc, char * argv[])
 		error ("No intext file!",namefile); 	
 		exit (1);
 	}
-	//ifstream wfile (w2vfile , ifstream::in );
-	ifstream wfile(w2vfile,ios::binary|ios::in);
+	ifstream wfile(w2vfile, ifstream::in);
 	if (!wfile) {
 		error ("No inw2v file!",w2vfile); 	
 		exit (1);
 	}
 
 	if (wfile.is_open()){		
-		char szBuffer[256];
-		int size = sizeof(szBuffer);
-		//memset(szBuffer, 0, size);
-		while( wfile.read(szBuffer, size)){
-		//while (!wfile.eof()){
-			//char tmp = (char) wfile.get();
-			line += szBuffer;
-		}
-	}
-
 		
-	if (wfile.is_open()){	
 		while (getline(wfile, line)) {
 			string strCls;
 			string strWrd;
@@ -277,12 +278,12 @@ int main(int argc, char * argv[])
 	std::vector < int > vId;
 	std::vector < std::vector <std::map<int,float> > > vMapCls;
 	std::vector < std::map <int,float> > vCls; 
-	int idstr;//string-doc numbers
-	int cntepo=0; //счетчик эпох
+	int idstr;
+	int cntepo=0;
 	if (myfile.is_open()){				
 		while (getline(myfile, line)) {
 			cntepo++;
-			std::map <int,float> cls;//map for each doc:class,weight 
+			std::map <int,float> cls;
 			int cntmap=0;
 			string strWrd;
 			string strID;
@@ -315,7 +316,7 @@ int main(int argc, char * argv[])
 					exit(1);
 				}
 				if (strWrd != "" ){
-					std::multimap<string,string>::const_iterator itMap = w2v.begin();///создаем итератор на начало map
+					std::multimap<string,string>::const_iterator itMap = w2v.begin();
 					itMap = w2v.find(strWrd);
 					if(itMap != w2v.end() ){						
 						string strTmp = (*itMap).second;
@@ -343,12 +344,11 @@ int main(int argc, char * argv[])
 							}
 						}
 							
-						if (0==cntmap){//map initialization 
+						if (0==cntmap){
 							cls.insert ( std::pair<int,float>(ncls,wgt) );
 							cntmap=1;
-							//cnth1++;
 						}
-						else{//здесь суммируем веса слов по классам и записывать в map
+						else{
 							std::map<int,float>::const_iterator it = cls.begin();
 							it = cls.find(ncls);
 							if(it != cls.end() ){	
@@ -356,13 +356,12 @@ int main(int argc, char * argv[])
 							}
 							else{
 								cls.insert ( std::pair<int,float>(ncls,wgt) );
-								//cnth1++;
 							}
 						}					
 					}
 				}	
 			}
-			if (cls.size()+1 > th1){//первый порог
+			if (cls.size()+1 > th1){
 				vCls.push_back( cls );	
 				vId.push_back( idstr );
 			}
@@ -383,7 +382,6 @@ int main(int argc, char * argv[])
 			}			
 		} //end while
 	} //close file
-	//если строк меньше, но файл уже закончился \n\neof
 	if(vCls.size()==0 ){
 		error ("No words or other lang!\n");
 		exit(0);
