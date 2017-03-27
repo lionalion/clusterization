@@ -51,7 +51,7 @@ void postClast (std::vector < std::vector < int > > vIdStr,std::vector < std::ve
 	for (std::multimap<int,int>::const_reverse_iterator rit = SizeMapCls.rbegin(); rit != SizeMapCls.rend(); ++rit){		
 		bool flg_x=false;
 		for (int q=0; q<vCheck.size(); q++){
-			if (vCheck[q] == (*rit).second;)
+			if (vCheck[q] == (*rit).second)
 				flg_x=true;
 		}
 		if (vIdStr[(*rit).second].size() > th3 && flg_x==false){	
@@ -64,7 +64,7 @@ void postClast (std::vector < std::vector < int > > vIdStr,std::vector < std::ve
 			for ( std::multimap<int,int>::const_reverse_iterator tir = rit; tir != SizeMapCls.rend(); ++tir){
 				bool flg_y=false;
 				for (int q=0; q<vCheck.size(); q++){
-					if (vCheck[q] == (*tir).second;)
+					if (vCheck[q] == (*tir).second)
 						flg_y=true;
 				}
 				if ((*rit).second;!=(*tir).second; && flg_y==false){
@@ -90,7 +90,7 @@ void postClast (std::vector < std::vector < int > > vIdStr,std::vector < std::ve
 									vOutMapCls[n].push_back(vMapCls[(*tir).second][g]);
 								}
 							}
-							vCheck.push_back((*tir).second;);
+							vCheck.push_back((*tir).second);
 						}
 					}
 				}
