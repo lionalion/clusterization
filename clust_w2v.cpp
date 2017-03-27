@@ -54,12 +54,12 @@ void postClast (std::vector < std::vector < int > > vIdStr,std::vector < std::ve
 			if (vCheck[q] == (*rit).second;)
 				flg_x=true;
 		}
-		if (vIdStr[(*rit).second;].size() > th3 && flg_x==false){	
+		if (vIdStr[(*rit).second].size() > th3 && flg_x==false){	
 			vOutIdStr.resize( vOutIdStr.size()+1 );
 			vOutMapCls.resize( vOutMapCls.size()+1 );
-			for (int h=0; h< vIdStr[(*rit).second;].size(); h++){							
-				vOutIdStr[n].push_back(vIdStr[(*rit).second;][h]); 							
-				vOutMapCls[n].push_back(vMapCls[(*rit).second;][h]); 
+			for (int h=0; h< vIdStr[(*rit).second].size(); h++){							
+				vOutIdStr[n].push_back(vIdStr[(*rit).second][h]); 							
+				vOutMapCls[n].push_back(vMapCls[(*rit).second][h]); 
 			}
 			for ( std::multimap<int,int>::const_reverse_iterator tir = rit; tir != SizeMapCls.rend(); ++tir){
 				bool flg_y=false;
@@ -69,25 +69,25 @@ void postClast (std::vector < std::vector < int > > vIdStr,std::vector < std::ve
 				}
 				if ((*rit).second;!=(*tir).second; && flg_y==false){
 					int cnt=0;
-					if (vIdStr[(*tir).second;].size() > th3){
-						for (int w=0; w<vIdStr[(*rit).second;].size(); w++){
-							for (int z=0; z<vIdStr[(*tir).second;].size(); z++){
-								if (vIdStr[(*rit).second;][w] == vIdStr[(*tir).second;][z]) {
+					if (vIdStr[(*tir).second].size() > th3){
+						for (int w=0; w<vIdStr[(*rit).second].size(); w++){
+							for (int z=0; z<vIdStr[(*tir).second].size(); z++){
+								if (vIdStr[(*rit).second][w] == vIdStr[(*tir).second][z]) {
 									cnt++;
 									break;
 								}
 							}
 						}
-						if ( cnt > vIdStr[(*tir).second;].size()*th4){
-							for (int g=0; g< vIdStr[(*tir).second;].size(); g++){ 
+						if ( cnt > vIdStr[(*tir).second].size()*th4){
+							for (int g=0; g< vIdStr[(*tir).second].size(); g++){ 
 								bool be=false;
 								for (int j=0; j< vOutIdStr[n].size(); j++){
-									if(vOutIdStr[n][j] == vIdStr[(*tir).second;][g])
+									if(vOutIdStr[n][j] == vIdStr[(*tir).second][g])
 										be=true;
 								}
 								if (be==false){
-									vOutIdStr[n].push_back(vIdStr[(*tir).second;][g]);
-									vOutMapCls[n].push_back(vMapCls[(*tir).second;][g]);
+									vOutIdStr[n].push_back(vIdStr[(*tir).second][g]);
+									vOutMapCls[n].push_back(vMapCls[(*tir).second][g]);
 								}
 							}
 							vCheck.push_back((*tir).second;);
