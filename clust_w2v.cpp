@@ -50,49 +50,47 @@ void postClast (std::vector < std::vector < int > > vIdStr,std::vector < std::ve
 	std::vector <int> vCheck;			
 	for (std::multimap<int,int>::const_reverse_iterator rit = SizeMapCls.rbegin(); rit != SizeMapCls.rend(); ++rit){		
 		bool flg_x=false;
-		int x = (*rit).second;
 		for (int q=0; q<vCheck.size(); q++){
-			if (vCheck[q] == x)
+			if (vCheck[q] == (*rit).second;)
 				flg_x=true;
 		}
-		if (vIdStr[x].size() > th3 && flg_x==false){	
+		if (vIdStr[(*rit).second;].size() > th3 && flg_x==false){	
 			vOutIdStr.resize( vOutIdStr.size()+1 );
 			vOutMapCls.resize( vOutMapCls.size()+1 );
-			for (int h=0; h< vIdStr[x].size(); h++){							
-				vOutIdStr[n].push_back(vIdStr[x][h]); 							
-				vOutMapCls[n].push_back(vMapCls[x][h]); 
+			for (int h=0; h< vIdStr[(*rit).second;].size(); h++){							
+				vOutIdStr[n].push_back(vIdStr[(*rit).second;][h]); 							
+				vOutMapCls[n].push_back(vMapCls[(*rit).second;][h]); 
 			}
 			for ( std::multimap<int,int>::const_reverse_iterator tir = rit; tir != SizeMapCls.rend(); ++tir){
 				bool flg_y=false;
-				int y = (*tir).second;
 				for (int q=0; q<vCheck.size(); q++){
-					if (vCheck[q] == y)
+					if (vCheck[q] == (*tir).second;)
 						flg_y=true;
 				}
-				if (x!=y && flg_y==false){
+				if ((*rit).second;!=(*tir).second; && flg_y==false){
 					int cnt=0;
-					if (vIdStr[y].size() > th3){
-						for (int w=0; w<vIdStr[x].size(); w++){
-							for (int z=0; z<vIdStr[y].size(); z++){
-								if (vIdStr[x][w] == vIdStr[y][z]) {
+					if (vIdStr[(*tir).second;].size() > th3){
+						for (int w=0; w<vIdStr[(*rit).second;].size(); w++){
+							for (int z=0; z<vIdStr[(*tir).second;].size(); z++){
+								if (vIdStr[(*rit).second;][w] == vIdStr[(*tir).second;][z]) {
 									cnt++;
 									break;
 								}
 							}
 						}
-						if ( cnt > vIdStr[y].size()*th4){
-							for (int g=0; g< vIdStr[y].size(); g++){ 
+						if ( cnt > vIdStr[(*tir).second;].size()*th4){
+							for (int g=0; g< vIdStr[(*tir).second;].size(); g++){ 
 								bool be=false;
 								for (int j=0; j< vOutIdStr[n].size(); j++){
-									if(vOutIdStr[n][j] == vIdStr[y][g])
+									if(vOutIdStr[n][j] == vIdStr[(*tir).second;][g])
 										be=true;
 								}
 								if (be==false){
-									vOutIdStr[n].push_back(vIdStr[y][g]);
-									vOutMapCls[n].push_back(vMapCls[y][g]);
+									vOutIdStr[n].push_back(vIdStr[(*tir).second;][g]);
+									vOutMapCls[n].push_back(vMapCls[(*tir).second;][g]);
 								}
 							}
-							vCheck.push_back(y);
+							vCheck.push_back((*tir).second;);
 						}
 					}
 				}
@@ -123,28 +121,24 @@ void firstClast (std::vector < std::map <int,float> > vCls, std::vector < int > 
 		}
 		
 		if (flg==false){
-			std::map <int,float> cls1;
-			cls1=vCls[ (*fst).second ];
 			vMapCls.resize(vMapCls.size()+1);
 			vIdStr.resize(vIdStr.size()+1);
-			vMapCls[cnt].push_back(cls1);
+			vMapCls[cnt].push_back(vCls[ (*fst).second ]);
 			vIdStr[cnt].push_back(vId[(*fst).second ]);
 
 			for ( std::multimap<int,int>::const_reverse_iterator scnd = fst; scnd != vMapRang.rend(); ++scnd){
 				if (fst!=scnd){
 					std::map<int,float>::const_iterator itv = vCls[ (*fst).second ].begin();			
-					std::map <int,float> cls2;			
-					cls2=vCls[ (*scnd).second ];
 					int comp=0;
-					for ( std::map<int,float>::const_iterator itr = cls2.begin(); itr != cls2.end(); ++itr){
-						std::map<int,float>::const_iterator itv = cls1.begin();
-						itv = cls1.find( (*itr).first );
-						if(itv != cls1.end() )
+					for ( std::map<int,float>::const_iterator itr = vCls[ (*scnd).second ].begin(); itr != vCls[ (*scnd).second ].end(); ++itr){
+						std::map<int,float>::const_iterator itv = vCls[ (*fst).second ].begin();
+						itv = vCls[ (*fst).second ].find( (*itr).first );
+						if(itv != vCls[ (*fst).second ].end() )
 							comp++;
 					}
 					
-					if( cls1.size()*th2 < comp){
-						vMapCls[cnt].push_back(cls2);
+					if( vCls[ (*fst).second ].size()*th2 < comp){
+						vMapCls[cnt].push_back(vCls[ (*scnd).second ]);
 						vIdStr[cnt].push_back(vId[(*scnd).second ]);
 					}
 				}
