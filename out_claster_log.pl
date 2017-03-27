@@ -1,4 +1,4 @@
-﻿b#!/usr/bin/perl
+﻿#!/usr/bin/perl
 #script integrates the results of clustering and source text (input_file)
 # output_log input_file out
 use warnings;
