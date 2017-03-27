@@ -67,7 +67,7 @@ void postClast (std::vector < std::vector < int > > vIdStr,std::vector < std::ve
 					if (vCheck[q] == (*tir).second)
 						flg_y=true;
 				}
-				if ((*rit).second;!=(*tir).second; && flg_y==false){
+				if ((*rit).second!=(*tir).second; && flg_y==false){
 					int cnt=0;
 					if (vIdStr[(*tir).second].size() > th3){
 						for (int w=0; w<vIdStr[(*rit).second].size(); w++){
