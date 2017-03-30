@@ -42,7 +42,7 @@ while (my $lin =<F_IN>) {
 		$tmp{$t[0]} = $str;	
 	}
 	else{
-		print "error w2v format...\n";
+		print "error format...\n$lin\n";
 	}
 }
 print F_OUT "cluster_number\tweigth\tIDoc\ttext(limit is 170 symbols)\n";
