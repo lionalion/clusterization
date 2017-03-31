@@ -1,3 +1,5 @@
+mkdir ../bin
+
 BIN_DIR=../bin
 
 CC = g++
