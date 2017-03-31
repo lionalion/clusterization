@@ -2,7 +2,7 @@ BIN_DIR=../bin
 	
 CC = g++
 
-clust_w2v : clust_w2v.cpp
+clust_w2v : ../clust_w2v.cpp
 	mkdir ../bin
 	$(CC) ../clust_w2v.cpp -o ${BIN_DIR}/clust_w2v 
 

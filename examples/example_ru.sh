@@ -5,7 +5,7 @@ MD_DIR=../mod
 FILE=example_ru.txt
 
 if [ ! -e $BIN_DIR ]; then
-	pushd ${BIN_DIR} && make; popd
+	make
 fi
 
 $BIN_DIR/clust_w2v -fl $DATA_DIR/$FILE -w2v $MD_DIR/ru.w2v  -th2 0.5 -th3 4 -th4 0.3 -out tmp.out
