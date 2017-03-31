@@ -1,10 +1,11 @@
 BIN_DIR=../bin
-	mkdir -p ../bin
+	
 CC = g++
 
 all: clust_w2v
 
 clust_w2v : clust_w2v.cpp
+	mkdir -p ../bin
 	$(CC) clust_w2v.cpp -o ${BIN_DIR}/clust_w2v 
 
 clean:
