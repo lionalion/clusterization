@@ -1,0 +1,9 @@
+DATA_DIR=txt
+BIN_DIR=../bin
+MD_DIR=../mod
+
+FILE=example_en.txt
+
+$BIN_DIR/clust_w2v -fl $DATA_DIR/$FILE -w2v $MD_DIR/en.w2v  -th2 0.5 -th3 4 -th4 0.3 -out tmp.out
+perl out_claster_log.pl tmp.out $FILE $FILE.log
+rm tmp.out
