@@ -11,14 +11,16 @@ Features of the algorithm:
 
 //////////////////// 
 
-Build under linux 
+Build under linux :
 
-	g++ clust_w2v.cpp -o clust_w2v
+make 
+or
+example_en.sh or example_ru.sh
 
 ///////////////////
 
 run:
-./clust_w2v -fl input_file -w2v classes_w2v -n N -th1 n -th2 n -th3 n -th4 n -out output_log
+bin/clust_w2v -fl input_file -w2v classes_w2v -n N -th1 n -th2 n -th3 n -th4 n -out output_log
 
 		format input_file - "IDdocs(numbers)\\ttext\n"		
 		format classes_w2v - "word\\tclass\\tweight\n"		
@@ -32,7 +34,7 @@ the format input_file:
 	IDdocs\tbla-bla\n
 	
 IDdocs - the number
-(see for example)
+(see for examples/)
  
 the format output_log:
 number_cluster: IDdocs1 weight1;IDdocs2 weight2;...IDdocsN weightN
@@ -48,7 +50,7 @@ recommened 5 version perl (or higher)
 
 /////////////////////
 
-for example run - example.sh 
+to run for example  - example_en.sh or example_ru.sh (english or russian)
 
 /////////////////////
 The trains corpus:
