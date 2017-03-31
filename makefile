@@ -1,9 +1,9 @@
-BIN_DIR=../bin
+BIN_DIR=bin
 
 CC = g++
 
 clust_w2v : clust_w2v.cpp
-	mkdir bin
+	mkdir binb
 	$(CC) clust_w2v.cpp -o ${BIN_DIR}/clust_w2v 
 
 clean:
