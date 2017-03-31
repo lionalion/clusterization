@@ -1,5 +1,5 @@
 BIN_DIR=../bin
-mkdir ../bin
+mkdir -p ../bin
 CC = g++
 
 all: clust_w2v
