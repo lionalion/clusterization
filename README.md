@@ -13,9 +13,12 @@ Features of the algorithm:
 
 Build under linux :
 
-make 
-or
-example_en.sh or example_ru.sh
+	make 
+	or
+	example_en.sh or example_ru.sh
+
+Build under linux :
+	win\clust_w2v\
 
 ///////////////////
 
