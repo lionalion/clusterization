@@ -57,6 +57,7 @@ recommened 5 version perl (or higher)
 to run for example  - example_en.sh or example_ru.sh (english or russian)
 
 /////////////////////
+
 The trains corpus:
 
 	english - Reuters  (http://trec.nist.gov/data/reuters/reuters.html) 1996-1997 ~ 180 million words;
