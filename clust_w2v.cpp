@@ -211,7 +211,7 @@ int main(int argc, char * argv[])
 			i++;
 		}
 		else if ("-th4" == snum){
-			th4 = atoi (argv[i+1]);
+			th4 = atof (argv[i+1]);
 			i++;
 		}
 	}
