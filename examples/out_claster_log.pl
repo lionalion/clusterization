@@ -63,7 +63,7 @@ while (my $line =<F_LOG>) {
 			if(exists( $tmp{$h})){
 				my $cnt=$str[0]+1;
 				my $wgt=int ($h{$h}*1000);
-				print F_OUT "$cnt\t$wgt\t$h\t$tmp{$h}\n";
+				print F_OUT "$cnt\t$h\t$tmp{$h}\n";
 			}
 		}
 	}
